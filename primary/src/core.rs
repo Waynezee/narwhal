@@ -210,6 +210,8 @@ impl Core {
                     .push(handler);
             }
         }
+        info!("end to handle header in core");
+        
         Ok(())
     }
 
@@ -244,6 +246,7 @@ impl Core {
                 .await
                 .expect("Failed to process valid certificate");
         }
+        info!("end to handle vote in core");
         Ok(())
     }
 
@@ -300,6 +303,7 @@ impl Core {
                 id, e
             );
         }
+        info!("end to handle cert in core");
         Ok(())
     }
 
