@@ -337,6 +337,7 @@ impl Core {
 
         // Verify the vote.
         // vote.verify(&self.committee).map_err(DagError::from)
+        ok(())
     }
 
     fn sanitize_certificate(&mut self, certificate: &Certificate) -> DagResult<()> {
@@ -347,6 +348,7 @@ impl Core {
 
         // Verify the certificate (and the embedded header).
         // certificate.verify(&self.committee).map_err(DagError::from)
+        ok(())
     }
 
     // Main loop listening to incoming messages.
