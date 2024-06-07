@@ -404,7 +404,7 @@ impl Core {
                 Err(e @ DagError::TooOld(..)) => debug!("{}", e),
                 Err(e) => warn!("{}", e),
             }
-            info!("end to handle message in core");
+            info!("end to handle message in core (noclean)");
             
             // Cleanup internal state.
             // let round = self.consensus_round.load(Ordering::Relaxed);
