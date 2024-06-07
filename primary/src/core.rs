@@ -272,17 +272,17 @@ impl Core {
 
         // Ensure we have all the ancestors of this certificate yet. If we don't, the synchronizer will gather
         // them and trigger re-processing of this certificate.
-        if !self.synchronizer.deliver_certificate(&certificate).await? {
-            debug!(
-                "Processing of {:?} suspended: missing ancestors",
-                certificate
-            );
-            return Ok(());
-        }
+        // if !self.synchronizer.deliver_certificate(&certificate).await? {
+        //     debug!(
+        //         "Processing of {:?} suspended: missing ancestors",
+        //         certificate
+        //     );
+        //     return Ok(());
+        // }
 
         // Store the certificate.
-        let bytes = bincode::serialize(&certificate).expect("Failed to serialize certificate");
-        self.store.write(certificate.digest().to_vec(), bytes).await;
+        // let bytes = bincode::serialize(&certificate).expect("Failed to serialize certificate");
+        // self.store.write(certificate.digest().to_vec(), bytes).await;
 
         // Check if we have enough certificates to enter a new dag round and propose a header.
         if let Some(parents) = self
