@@ -123,7 +123,7 @@ impl Proposer {
                 // Make a new header.
                 self.make_header().await;
                 self.payload_size = 0;
-
+                debug!("make header in round {}", self.round);
                 // Reschedule the timer.
                 let deadline = Instant::now() + Duration::from_millis(self.max_header_delay);
                 timer.as_mut().reset(deadline);
