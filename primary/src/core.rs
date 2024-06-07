@@ -358,7 +358,7 @@ impl Core {
                             match self.sanitize_header(&header) {
                                 Ok(()) => self.process_header(&header).await,
                                 error => error
-                            },
+                            }
                             info!("end to handle header in core");
 
                         },
@@ -367,16 +367,16 @@ impl Core {
                             match self.sanitize_vote(&vote) {
                                 Ok(()) => self.process_vote(vote).await,
                                 error => error
-                            },
-                            info!("end to handle vote in core"),
+                            }
+                            info!("end to handle vote in core");
                         },
                         PrimaryMessage::Certificate(certificate) => {
                             info!("start to handle certificate in core");
                             match self.sanitize_certificate(&certificate) {
                                 Ok(()) =>  self.process_certificate(certificate).await,
                                 error => error
-                            },
-                            info!("end to handle certificate in core"),
+                            }
+                            info!("end to handle certificate in core");
                         },
                         _ => panic!("Unexpected core message")
                     }
@@ -392,7 +392,6 @@ impl Core {
 
                 // We also receive here our new headers created by the `Proposer`.
                 Some(header) = self.rx_proposer.recv() => self.process_own_header(header).await,
-                info!("end to handle message in core"),
                 
             };
             match result {
@@ -404,7 +403,8 @@ impl Core {
                 Err(e @ DagError::TooOld(..)) => debug!("{}", e),
                 Err(e) => warn!("{}", e),
             }
-
+            info!("end to handle message in core");
+            
             // Cleanup internal state.
             let round = self.consensus_round.load(Ordering::Relaxed);
             if round > self.gc_depth {
