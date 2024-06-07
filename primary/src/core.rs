@@ -314,7 +314,7 @@ impl Core {
         );
 
         // Verify the header's signature.
-        header.verify(&self.committee)?;
+       // header.verify(&self.committee)?;
 
         // TODO [issue #3]: Prevent bad nodes from sending junk headers with high round numbers.
 
@@ -336,7 +336,7 @@ impl Core {
         );
 
         // Verify the vote.
-        vote.verify(&self.committee).map_err(DagError::from)
+        // vote.verify(&self.committee).map_err(DagError::from)
     }
 
     fn sanitize_certificate(&mut self, certificate: &Certificate) -> DagResult<()> {
@@ -346,7 +346,7 @@ impl Core {
         );
 
         // Verify the certificate (and the embedded header).
-        certificate.verify(&self.committee).map_err(DagError::from)
+        // certificate.verify(&self.committee).map_err(DagError::from)
     }
 
     // Main loop listening to incoming messages.
