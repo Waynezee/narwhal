@@ -128,6 +128,7 @@ impl Core {
             .collect();
         let bytes = bincode::serialize(&PrimaryMessage::Header(header.clone()))
             .expect("Failed to serialize our own header");
+        info!("send header");
         let handlers = self.network.broadcast(addresses, Bytes::from(bytes)).await;
         self.cancel_handlers
             .entry(header.round)
@@ -203,6 +204,7 @@ impl Core {
                     .primary_to_primary;
                 let bytes = bincode::serialize(&PrimaryMessage::Vote(vote))
                     .expect("Failed to serialize our own vote");
+                info!("send vote");
                 let handler = self.network.send(address, Bytes::from(bytes)).await;
                 self.cancel_handlers
                     .entry(header.round)
@@ -235,6 +237,7 @@ impl Core {
                 .collect();
             let bytes = bincode::serialize(&PrimaryMessage::Certificate(certificate.clone()))
                 .expect("Failed to serialize our own certificate");
+            info!("send certificate");
             let handlers = self.network.broadcast(addresses, Bytes::from(bytes)).await;
             self.cancel_handlers
                 .entry(certificate.round())
