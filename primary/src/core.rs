@@ -281,8 +281,8 @@ impl Core {
         // }
 
         // Store the certificate.
-        // let bytes = bincode::serialize(&certificate).expect("Failed to serialize certificate");
-        // self.store.write(certificate.digest().to_vec(), bytes).await;
+        let bytes = bincode::serialize(&certificate).expect("Failed to serialize certificate");
+        self.store.write(certificate.digest().to_vec(), bytes).await;
 
         // Check if we have enough certificates to enter a new dag round and propose a header.
         if let Some(parents) = self
