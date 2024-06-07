@@ -351,34 +351,37 @@ impl Core {
             let result = tokio::select! {
                 // We receive here messages from other primaries.
                 Some(message) = self.rx_primaries.recv() => {
-                    info!("handle message in core");
+                    info!("start to handle message in core");
                     match message {
                         PrimaryMessage::Header(header) => {
-                            info!("handle header in core");
+                            info!("start to handle header in core");
                             match self.sanitize_header(&header) {
                                 Ok(()) => self.process_header(&header).await,
                                 error => error
                             }
+                            info!("end to handle header in core");
 
                         },
                         PrimaryMessage::Vote(vote) => {
-                            info!("handle vote in core");
+                            info!("start to handle vote in core");
                             match self.sanitize_vote(&vote) {
                                 Ok(()) => self.process_vote(vote).await,
                                 error => error
                             }
+                            info!("end to handle vote in core");
                         },
                         PrimaryMessage::Certificate(certificate) => {
-                            info!("handle certificate in core");
+                            info!("start to handle certificate in core");
                             match self.sanitize_certificate(&certificate) {
                                 Ok(()) =>  self.process_certificate(certificate).await,
                                 error => error
                             }
+                            info!("end to handle certificate in core");
                         },
                         _ => panic!("Unexpected core message")
                     }
                 },
-
+                info!("end to handle message in core");
                 // We receive here loopback headers from the `HeaderWaiter`. Those are headers for which we interrupted
                 // execution (we were missing some of their dependencies) and we are now ready to resume processing.
                 Some(header) = self.rx_header_waiter.recv() => self.process_header(&header).await,
