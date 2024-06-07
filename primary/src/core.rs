@@ -351,8 +351,10 @@ impl Core {
             let result = tokio::select! {
                 // We receive here messages from other primaries.
                 Some(message) = self.rx_primaries.recv() => {
+                    info!("handle message in core");
                     match message {
                         PrimaryMessage::Header(header) => {
+                            info!("handle header in core");
                             match self.sanitize_header(&header) {
                                 Ok(()) => self.process_header(&header).await,
                                 error => error
@@ -360,12 +362,14 @@ impl Core {
 
                         },
                         PrimaryMessage::Vote(vote) => {
+                            info!("handle vote in core");
                             match self.sanitize_vote(&vote) {
                                 Ok(()) => self.process_vote(vote).await,
                                 error => error
                             }
                         },
                         PrimaryMessage::Certificate(certificate) => {
+                            info!("handle certificate in core");
                             match self.sanitize_certificate(&certificate) {
                                 Ok(()) =>  self.process_certificate(certificate).await,
                                 error => error
