@@ -359,7 +359,6 @@ impl Core {
                                 Ok(()) => self.process_header(&header).await,
                                 error => error
                             }
-                            info!("end to handle header in core");
 
                         },
                         PrimaryMessage::Vote(vote) => {
@@ -368,7 +367,6 @@ impl Core {
                                 Ok(()) => self.process_vote(vote).await,
                                 error => error
                             }
-                            info!("end to handle vote in core");
                         },
                         PrimaryMessage::Certificate(certificate) => {
                             info!("start to handle certificate in core");
@@ -376,7 +374,6 @@ impl Core {
                                 Ok(()) =>  self.process_certificate(certificate).await,
                                 error => error
                             }
-                            info!("end to handle certificate in core");
                         },
                         _ => panic!("Unexpected core message")
                     }
