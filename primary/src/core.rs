@@ -380,7 +380,6 @@ impl Core {
                         },
                         _ => panic!("Unexpected core message")
                     }
-                    info!("end to handle message in core");
                 },
                 // We receive here loopback headers from the `HeaderWaiter`. Those are headers for which we interrupted
                 // execution (we were missing some of their dependencies) and we are now ready to resume processing.
